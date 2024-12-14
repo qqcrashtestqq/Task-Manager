@@ -19,7 +19,6 @@ class UpdateUserDTO
      return [
 
          'name' => $this->name,
-//         'avatar' => $this->avatar,
          'email' => $this->email,
          'password' => $this->password,
      ];

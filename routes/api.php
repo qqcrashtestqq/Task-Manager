@@ -20,8 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//todo добавить префикс и группировать роуты
-Route::post('createUser', [UserController::class, 'store']);
-Route::get('allUser', [UserController::class, 'index']);
-Route::put('updateUser/{id}', [UserController::class, 'update']);
-Route::post('loginUser', [AuthController::class, 'login']);
+Route::prefix('user')->group(function () {
+    Route::post('create', [UserController::class, 'store']);
+    Route::get('all', [UserController::class, 'index']);
+    Route::get('show/{id}', [UserController::class, 'show']);
+    Route::put('update/{id}', [UserController::class, 'update']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::delete('destroy/{id}', [UserController::class, 'destroy']);
+});

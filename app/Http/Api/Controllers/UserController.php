@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public  function  __construct(private readonly  UserService $userService)
+    public function __construct(private readonly UserService $userService)
     {
 
     }
@@ -41,17 +41,16 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-//        todo название переменной назвать корректно newUserData
-        $user = new StoreUserDTO(...$request->validated());
-        return $this->userService->store($user);
+        $newUserData = new StoreUserDTO(...$request->validated());
+        return $this->userService->store($newUserData);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id)
     {
-        //
+        return $this->userService->show($id);
     }
 
     /**
@@ -60,6 +59,7 @@ class UserController extends Controller
     public function edit()
     {
 
+
     }
 
     /**
@@ -67,15 +67,15 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request)
     {
-        $updateUser = new UpdateUserDTO(... $request->validated());
-        return $this->userService->update($updateUser);
+        $updateUserData = new UpdateUserDTO(... $request->validated());
+        return $this->userService->update($updateUserData);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+        return $this->userService->destroy($id);
     }
 }

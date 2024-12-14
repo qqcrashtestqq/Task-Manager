@@ -21,7 +21,6 @@ class UpdateUserRequest extends GetIdRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
 
-//    TODO какой приоритет валидации такого формата над обычной return ['name'=> [...]]
     public function rules(): array
     {
         return array_merge( parent::rules() + [
