@@ -41,7 +41,8 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $user = new StoreUserDTO(... $request->validated());
+//        todo название переменной назвать корректно newUserData
+        $user = new StoreUserDTO(...$request->validated());
         return $this->userService->store($user);
     }
 

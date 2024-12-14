@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+//todo добавить префикс и группировать роуты
 Route::post('createUser', [UserController::class, 'store']);
 Route::get('allUser', [UserController::class, 'index']);
 Route::put('updateUser/{id}', [UserController::class, 'update']);

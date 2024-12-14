@@ -12,12 +12,14 @@ class UserService
 
     public function index()
     {
-        return User::all();
+        return User::select('id', 'name', 'email', 'avatar')->get();
+
     }
 
 
     public function store(StoreUserDTO $dto)
     {
+//        todo прочитать про фасад  Hash и переделать
         $dto->password = bcrypt($dto->password);
         return User::create($dto->toArray());
     }

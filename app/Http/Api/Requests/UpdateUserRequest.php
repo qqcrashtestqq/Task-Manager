@@ -3,8 +3,9 @@
 namespace App\Http\Api\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateUserRequest extends FormRequest
+class UpdateUserRequest extends GetIdRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +27,7 @@ class UpdateUserRequest extends FormRequest
         return array_merge( parent::rules() + [
             'name' => ['required', 'string', 'max:255'],
 //            'avatar' => ['nullable', 'file', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->id)],
             'password' => ['required', 'string', 'min:3', 'max:255']
         ]);
     }

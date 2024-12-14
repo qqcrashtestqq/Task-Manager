@@ -17,6 +17,9 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+
+//    todo прочитать или посмотреть видое про авториазцию + jwt token Laravel passport
+// todo разобрать что такое пермиссия
     public function login()
     {
         $credetials = request(['email', 'password']);
