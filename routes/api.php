@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Api\Controllers\AuthController;
+use App\Http\Api\Controllers\TaskController;
 use App\Http\Api\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,4 +28,13 @@ Route::prefix('user')->group(function () {
     Route::put('update/{id}', [UserController::class, 'update']);
     Route::post('login', [AuthController::class, 'login']);
     Route::delete('destroy/{id}', [UserController::class, 'destroy']);
+});
+
+
+Route::prefix('task')->group(function () {
+    Route::get('all', [TaskController::class, 'index']);
+    Route::get('show/{id}', [TaskController::class, 'show']);
+    Route::post('create', [TaskController::class, 'store']);
+    Route::put('update', [TaskController::class, 'update']);
+    Route::delete('destroy/{id}', [TaskController::class, 'destroy']);
 });
