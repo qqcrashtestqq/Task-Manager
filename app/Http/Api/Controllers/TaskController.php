@@ -3,6 +3,7 @@
 namespace App\Http\Api\Controllers;
 
 use App\Http\Api\DTOs\TaskDTOs\StoreTaskDTO;
+use App\Http\Api\DTOs\TaskDTOs\UpdateTaskDTO;
 use App\Http\Api\Requests\StoreTaskRequest;
 use App\Http\Api\Requests\UpdateTaskRequest;
 use App\Http\Api\Services\TaskService;
@@ -63,7 +64,8 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $updateTaskRequest)
     {
-        //
+        $updateTaskData = new UpdateTaskDTO(... $updateTaskRequest->validated());
+        return $this->taskService->update($updateTaskData);
     }
 
     /**

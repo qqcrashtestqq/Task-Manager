@@ -35,6 +35,6 @@ Route::prefix('task')->group(function () {
     Route::get('all', [TaskController::class, 'index']);
     Route::get('show/{id}', [TaskController::class, 'show']);
     Route::post('create', [TaskController::class, 'store']);
-    Route::put('update', [TaskController::class, 'update']);
+    Route::put('update/{id}', [TaskController::class, 'update']);
     Route::delete('destroy/{id}', [TaskController::class, 'destroy']);
 });

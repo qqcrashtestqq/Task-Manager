@@ -27,4 +27,10 @@ class UpdateTaskRequest extends GetIdRequest
                 'completed' => ['nullable', 'integer', 'max:3']
             ]);
     }
+
+
+    public function validationData(): ?array
+    {
+        return array_merge($this->route()->parameters(), $this->all());
+    }
 }

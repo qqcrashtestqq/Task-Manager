@@ -3,6 +3,7 @@
 namespace App\Http\Api\Services;
 
 use App\Http\Api\DTOs\TaskDTOs\StoreTaskDTO;
+use App\Http\Api\DTOs\TaskDTOs\UpdateTaskDTO;
 use App\Models\Task;
 
 class TaskService
@@ -20,9 +21,11 @@ class TaskService
 
     }
 
-    public function  update()
+    public function  update(UpdateTaskDTO $updateTaskDTO)
     {
-
+        $updateTaskData = Task::findOrFail($updateTaskDTO->id);
+        $updateTaskData->update($updateTaskDTO->toArray());
+        return $updateTaskData;
     }
 
 
