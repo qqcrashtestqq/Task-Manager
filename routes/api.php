@@ -32,6 +32,7 @@ Route::prefix('user')->group(function () {
 
 
 Route::prefix('task')->group(function () {
+    Route::post('login', [TaskController::class, 'loginUser']);
     Route::get('all', [TaskController::class, 'index']);
     Route::get('show/{id}', [TaskController::class, 'show']);
     Route::post('create', [TaskController::class, 'store']);
