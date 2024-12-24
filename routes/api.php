@@ -31,11 +31,14 @@ Route::prefix('user')->group(function () {
 });
 
 
-Route::prefix('task')->group(function () {
-    Route::post('login', [TaskController::class, 'loginUser']);
+
+Route::prefix('task')->middleware('auth:api')->group(function () {
     Route::get('all', [TaskController::class, 'index']);
     Route::get('show/{id}', [TaskController::class, 'show']);
     Route::post('create', [TaskController::class, 'store']);
     Route::put('update/{id}', [TaskController::class, 'update']);
     Route::delete('destroy/{id}', [TaskController::class, 'destroy']);
 });
+
+
+Route::post('login', [UserController::class, 'loginUser']);
