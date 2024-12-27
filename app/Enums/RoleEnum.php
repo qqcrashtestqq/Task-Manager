@@ -15,4 +15,14 @@ enum RoleEnum: string {
     }
 
 
+    public function  description(): string
+    {
+        return match ($this) {
+
+            self::ADMIN => 'Администратор',
+            self::USER => 'Пользователй',
+        };
+    }
+
+
 }

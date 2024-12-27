@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -41,6 +42,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'role' => RoleEnum::class,
         'email_verified_at' => 'datetime',
     ];
 
@@ -67,6 +69,14 @@ class User extends Authenticatable
     }
 
 
+    /*
+     * function for Role
+     */
+
+    public function hasRole(RoleEnum $roleEnum): bool
+    {
+//        return  $this-> === $roleEnum;
+    }
 
 
 
