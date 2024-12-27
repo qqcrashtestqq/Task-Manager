@@ -12,7 +12,6 @@ class AuthController extends Controller
 {
     public function __construct(private readonly UserService $userService)
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
     }
 
     /**
@@ -22,10 +21,10 @@ class AuthController extends Controller
      */
 
 // todo разобрать что такое пермиссия
-    public function login(LoginUserRequest $userRequest)
+    public function login(LoginUserRequest $loginUserRequest)
     {
-        $login = new LoginUserDTO(... $userRequest->validated());
-        return $this->userService->loginUser($login);
+        $loginData = new LoginUserDTO(... $loginUserRequest->validated());
+        return $this->userService->loginUser($loginData);
     }
 
     /**

@@ -212,4 +212,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    'api_token_expired_in_hours' => env('API_TOKEN_EXPIRED_IN_HOURS'),
+    'api_refresh_token_expired_in_hours' => env('API_REFRESH_TOKEN_EXPIRED_IN_HOURS'),
+
 ];
