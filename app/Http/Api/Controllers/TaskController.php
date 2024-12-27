@@ -2,6 +2,7 @@
 
 namespace App\Http\Api\Controllers;
 
+use App\Enums\RoleEnum;
 use App\Http\Api\DTOs\TaskDTOs\StoreTaskDTO;
 use App\Http\Api\DTOs\TaskDTOs\UpdateTaskDTO;
 use App\Http\Api\Requests\StoreTaskRequest;

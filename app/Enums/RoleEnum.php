@@ -1,8 +1,18 @@
 <?php
 
-namespace app\Enums;
+namespace App\Enums;
 
-enum Role: string {
-case Admin = 'Admin';
-case  User = 'User';
+enum RoleEnum: string {
+    case ADMIN = 'admin';
+    case USER = 'user';
+
+    public function roleId(): int
+    {
+        return match ($this) {
+            self::ADMIN => 1,
+            self::USER => 2,
+        };
+    }
+
+
 }

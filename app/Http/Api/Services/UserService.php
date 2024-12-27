@@ -29,13 +29,13 @@ class UserService
 
     public function loginUser(LoginUserDTO $loginUserDTO)
     {
-        $loginData = User::where('email', $loginUserDTO->email)->firstOrFail();
+        $user = User::where('email', $loginUserDTO->email)->firstOrFail();
 
-        if (!$loginData || !Hash::check($loginUserDTO->password, $loginData->password)) {
+        if (!$user || !Hash::check($loginUserDTO->password, $user->password)) {
             throw new \Exception('Invalid credentials');
         }
 
-        $token = $loginData->createToken('myApp')->accessToken;
+        $token = $user->createToken('myApp')->accessToken;
         return response()->json(
             [
                 'message' => 'Auth OK',

@@ -22,8 +22,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-//        Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
         $this->registerPolicies();
+
+        // TODO:: change token lifetime
+        Passport::tokensExpireIn(now()->addHours(config('app.api_token_expired_in_hours')));
 
     }
 }
