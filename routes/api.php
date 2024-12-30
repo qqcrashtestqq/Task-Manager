@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Api\Controllers\AuthController;
+use App\Http\Api\Controllers\RegisterController;
 use App\Http\Api\Controllers\TaskController;
 use App\Http\Api\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -40,5 +41,6 @@ Route::prefix('task')->middleware('auth:api')->group(function () {
     Route::delete('destroy/{id}', [TaskController::class, 'destroy']);
 });
 
-
+//Register and Login for user
+Route::post('register', [RegisterController::class, 'registerUser']);
 Route::post('login', [UserController::class, 'loginUser']);
