@@ -5,6 +5,7 @@ namespace App\Http\Api\Controllers;
 use App\Enums\RoleEnum;
 use App\Http\Api\DTOs\TaskDTOs\StoreTaskDTO;
 use App\Http\Api\DTOs\TaskDTOs\UpdateTaskDTO;
+use App\Http\Api\Requests\SearchTaskRequest;
 use App\Http\Api\Requests\StoreTaskRequest;
 use App\Http\Api\Requests\UpdateTaskRequest;
 use App\Http\Api\Services\TaskService;
@@ -14,7 +15,7 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
 
-    public function  __construct(private readonly  TaskService $taskService)
+    public function __construct(private readonly TaskService $taskService)
     {
 
     }
@@ -75,5 +76,14 @@ class TaskController extends Controller
     public function destroy(int $id)
     {
         return $this->taskService->destroy($id);
+    }
+
+
+    public function searchTask(SearchTaskRequest $searchTaskRequest)
+    {
+        $tasks = $this->taskService->search($searchTaskRequest);
+
+        return response()->json($tasks);
+
     }
 }

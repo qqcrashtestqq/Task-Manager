@@ -39,8 +39,9 @@ Route::prefix('task')->middleware('auth:api')->group(function () {
     Route::post('create', [TaskController::class, 'store']);
     Route::put('update/{id}', [TaskController::class, 'update']);
     Route::delete('destroy/{id}', [TaskController::class, 'destroy']);
+    Route::get('search', [TaskController::class, 'searchTask']);
 });
 
 //Register and Login for user
 Route::post('register', [RegisterController::class, 'registerUser']);
-Route::post('login', [UserController::class, 'loginUser']);
+Route::post('login', [AuthController::class, 'login']);
