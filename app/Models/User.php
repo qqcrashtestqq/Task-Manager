@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -24,6 +25,7 @@ class User extends Authenticatable
         'avatar',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -42,7 +44,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'role' => RoleEnum::class,
+//        'role' => RoleEnum::class,
         'email_verified_at' => 'datetime',
     ];
 
@@ -73,12 +75,10 @@ class User extends Authenticatable
      * function for Role
      */
 
-    public function hasRole(RoleEnum $roleEnum): bool
+    public function role(): BelongsTo
     {
-//        return  $this-> === $roleEnum;
+        return  $this->belongsTo(Role::class);
     }
-
-
 
     public function tasks(): HasMany
     {
