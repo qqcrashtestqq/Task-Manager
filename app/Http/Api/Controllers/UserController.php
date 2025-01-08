@@ -10,6 +10,7 @@ use App\Http\Api\Requests\UpdateUserRequest;
 use App\Http\Api\Services\UserService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class UserController extends Controller
@@ -41,8 +42,20 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $newUserData = new StoreUserDTO(...$request->validated());
-        return $this->userService->store($newUserData);
+        try {
+            DB::beginTransaction();
+
+            $newUserData = new StoreUserDTO(...$request->validated());
+            $newUser = $this->userService->store($newUserData);
+
+            DB::commit();
+
+            return $newUser;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return response()->json($exception);
+        }
+
     }
 
     /**

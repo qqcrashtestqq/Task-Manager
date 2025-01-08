@@ -16,15 +16,28 @@ class UserService
 
     public function index()
     {
-        return User::select('id', 'name', 'email', 'avatar')->get();
+        $allUsers = User::select('id', 'name', 'email', 'avatar', 'role_id')
+            ->with('role:id,name')
+            ->get();
 
+        unset($allUsers->role_id);
+
+        return response()->json($allUsers);
     }
 
 
     public function store(StoreUserDTO $dto)
     {
         $dto->password = Hash::make($dto->password);
-        return User::create($dto->toArray());
+
+        $newUser = User::create($dto->toArray());
+
+//        todo почему load а не with
+        $newUser->load('role:id,name');
+
+        unset($newUser->role_id);
+
+        return $newUser;
     }
 
     public function loginUser(LoginUserDTO $loginUserDTO)
@@ -47,7 +60,11 @@ class UserService
 
     public function show(int $id)
     {
-        return User::findOrFail($id);
+        $user = User::select('id','name','email','avatar','role_id')->with('role:id,name')->findOrFail($id);
+
+        unset($user->role_id);
+
+        return $user;
     }
 
 

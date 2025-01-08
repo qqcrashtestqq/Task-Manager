@@ -3,14 +3,16 @@
 namespace App\Enums;
 
 enum RoleEnum: string {
+    case SUPER_ADMIN = 'super_admin';
     case ADMIN = 'admin';
     case USER = 'user';
 
     public function roleId(): int
     {
         return match ($this) {
-            self::ADMIN => 1,
-            self::USER => 2,
+            self::SUPER_ADMIN => 1,
+            self::ADMIN => 2,
+            self::USER => 3,
         };
     }
 
@@ -18,11 +20,10 @@ enum RoleEnum: string {
     public function  description(): string
     {
         return match ($this) {
-
+            self::SUPER_ADMIN => 'Супер администратор',
             self::ADMIN => 'Администратор',
-            self::USER => 'Пользователй',
+            self::USER => 'Пользователь',
         };
     }
-
 
 }

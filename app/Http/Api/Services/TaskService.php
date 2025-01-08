@@ -10,19 +10,28 @@ use App\Models\Task;
 class TaskService
 {
 
+//    todo создание логики комментарием и ответам на комментарии
     public function index()
     {
-        return Task::get();
+        $allTasks = Task::select('id', 'title', 'description', 'completed', 'user_id')
+            ->with('user:id,name,email')
+            ->get();
+
+        foreach ($allTasks as $task) {
+            unset($task->user_id);
+        }
+
+        return response()->json($allTasks);
     }
 
 
     public function store(StoreTaskDTO $storeTaskDto)
     {
-        return  Task::create($storeTaskDto->toArray());
+        return Task::create($storeTaskDto->toArray());
 
     }
 
-    public function  update(UpdateTaskDTO $updateTaskDTO)
+    public function update(UpdateTaskDTO $updateTaskDTO)
     {
         $updateTaskData = Task::findOrFail($updateTaskDTO->id);
         $updateTaskData->update($updateTaskDTO->toArray());
@@ -30,7 +39,7 @@ class TaskService
     }
 
 
-    public function  show(int $id)
+    public function show(int $id)
     {
         return Task::findOrFail($id);
     }
@@ -46,15 +55,13 @@ class TaskService
     {
         $search = $searchTaskRequest->input('search');
 
-        if($search)
-        {
+        if ($search) {
             $tasks = Task::where('user_id', auth()->id())
-            ->where('title', 'LIKE', '%'. $search . '%')
-            ->get();
-        } else
-        {
-            $tasks =  Task::where('user_id', auth()->id())->get();
+                ->where('title', 'LIKE', '%' . $search . '%')
+                ->get();
+        } else {
+            $tasks = Task::where('user_id', auth()->id())->get();
         }
-        return response()->json($tasks);
+        return $tasks;
     }
 }

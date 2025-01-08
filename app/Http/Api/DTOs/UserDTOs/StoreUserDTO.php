@@ -9,7 +9,8 @@ class StoreUserDTO
         public string $name,
         public ?string $avatar,
         public string $email,
-        public string $password
+        public string $password,
+        public int $roleId,
     )
     {
 
@@ -22,7 +23,8 @@ class StoreUserDTO
             'name' => $this->name,
             'avatar' => $this->avatar,
             'email' => $this->email,
-            'password' => $this->password
+            'password' => $this->password,
+            'role_id' => $this->roleId,
         ];
     }
 
