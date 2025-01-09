@@ -28,11 +28,11 @@ class UserService
     }
 
 
-    public function store(StoreUserDTO $dto)
+    public function store(StoreUserDTO $storeUserDTO)
     {
-        $dto->password = Hash::make($dto->password);
+        $storeUserDTO->password = Hash::make($storeUserDTO->password);
 
-        $newUser = User::create($dto->toArray());
+        $newUser = User::create($storeUserDTO->toArray());
 
 //        todo почему load а не with
         $newUser->load('role:id,name');
@@ -44,13 +44,13 @@ class UserService
 
     public function loginUser(LoginUserDTO $loginUserDTO)
     {
-        $user = User::where('email', $loginUserDTO->email)->firstOrFail();
+        $LoginUserData = User::where('email', $loginUserDTO->email)->firstOrFail();
 
-        if (!$user || !Hash::check($loginUserDTO->password, $user->password)) {
+        if (!$LoginUserData || !Hash::check($loginUserDTO->password, $LoginUserData->password)) {
             throw new \Exception('Invalid credentials');
         }
 
-        $token = $user->createToken('myApp')->accessToken;
+        $token = $LoginUserData->createToken('myApp')->accessToken;
         return response()->json(
             [
                 'message' => 'Auth OK',
@@ -60,9 +60,9 @@ class UserService
     }
 
 
-    public function show(int $id)
+    public function show(int $userId)
     {
-        $user = User::select('id', 'name', 'email', 'avatar', 'role_id')->with('role:id,name')->findOrFail($id);
+        $user = User::select('id', 'name', 'email', 'avatar', 'role_id')->with('role:id,name')->findOrFail($userId);
 
         unset($user->role_id);
 
@@ -71,19 +71,19 @@ class UserService
 
 
     public
-    function update(UpdateUserDTO $dto)
+    function update(UpdateUserDTO $updateUserDTO)
     {
-        $user = User::findOrFail($dto->id);
-        $dto->password = Hash::make($dto->password);
-        $user->update($dto->toArray());
+        $UpdateUserData = User::findOrFail($updateUserDTO->id);
+        $updateUserDTO->password = Hash::make($updateUserDTO->password);
+        $UpdateUserData->update($updateUserDTO->toArray());
 //       dd($user);
-        return $user;
+        return $UpdateUserData;
     }
 
 
-    public function destroy(int $id)
+    public function destroy(int $userId)
     {
-        return User::destroy($id);
+        return User::destroy($userId);
     }
 
 }
