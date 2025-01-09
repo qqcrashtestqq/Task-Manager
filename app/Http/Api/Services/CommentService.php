@@ -16,8 +16,13 @@ class CommentService
 
     public function store(StoreCommentDTO $storeCommentDTO)
     {
-        return Comment::create($storeCommentDTO->toArray());
 
+        if ($storeCommentDTO->parent_id) {
+            $parentComment = Comment::findOrFail($storeCommentDTO->parent_id);
+            $storeCommentDTO->parent_id = $parentComment->id;
+        }
+
+        return Comment::create($storeCommentDTO->toArray());
     }
 
 
