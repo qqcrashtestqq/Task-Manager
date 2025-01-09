@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Api\Controllers\AuthController;
+use App\Http\Api\Controllers\CommentController;
 use App\Http\Api\Controllers\RegisterController;
 use App\Http\Api\Controllers\TaskController;
 use App\Http\Api\Controllers\UserController;
@@ -50,5 +51,6 @@ Route::post('login', [AuthController::class, 'login']);
 
 //Comments route
 Route::prefix('comment')->middleware('auth:api')->group(function(){
-    Route::get('all', [ '']);
+    Route::get('all', [CommentController::class, 'index']);
+    Route::post('create', [CommentController::class, 'store']);
 });
