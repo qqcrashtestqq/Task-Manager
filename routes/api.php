@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Api\Controllers\AuthController;
+use App\Http\Api\Controllers\CommentController;
 use App\Http\Api\Controllers\RegisterController;
 use App\Http\Api\Controllers\TaskController;
 use App\Http\Api\Controllers\UserController;
@@ -22,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//User route
 Route::prefix('user')->group(function () {
     Route::post('create', [UserController::class, 'store']);
     Route::get('all', [UserController::class, 'index']);
@@ -32,7 +34,7 @@ Route::prefix('user')->group(function () {
 });
 
 
-
+//Task route
 Route::prefix('task')->middleware('auth:api')->group(function () {
     Route::get('all', [TaskController::class, 'index']);
     Route::get('show/{id}', [TaskController::class, 'show']);
@@ -45,3 +47,10 @@ Route::prefix('task')->middleware('auth:api')->group(function () {
 //Register and Login for user
 Route::post('register', [RegisterController::class, 'registerUser']);
 Route::post('login', [AuthController::class, 'login']);
+
+
+//Comments route
+Route::prefix('comment')->middleware('auth:api')->group(function(){
+    Route::get('all', [CommentController::class, 'index']);
+    Route::post('create', [CommentController::class, 'store']);
+});

@@ -41,7 +41,14 @@ class TaskService
 
     public function show(int $id)
     {
-        return Task::findOrFail($id);
+
+        $task = Task::select('title', 'description', 'user_id')
+            ->with('user:id,name,email')
+            ->findOrFail($id);
+
+        unset($task->user_id);
+
+        return response()->json($task);
     }
 
 

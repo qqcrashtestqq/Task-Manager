@@ -20,7 +20,9 @@ class UserService
             ->with('role:id,name')
             ->get();
 
-        unset($allUsers->role_id);
+        foreach ($allUsers as $user) {
+          unset($user->role_id);
+        }
 
         return response()->json($allUsers);
     }
@@ -60,7 +62,7 @@ class UserService
 
     public function show(int $id)
     {
-        $user = User::select('id','name','email','avatar','role_id')->with('role:id,name')->findOrFail($id);
+        $user = User::select('id', 'name', 'email', 'avatar', 'role_id')->with('role:id,name')->findOrFail($id);
 
         unset($user->role_id);
 
