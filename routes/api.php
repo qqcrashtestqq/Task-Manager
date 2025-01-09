@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //User route
-Route::prefix('user')->group(function () {
+Route::prefix('users')->group(function () {
     Route::post('create', [UserController::class, 'store']);
     Route::get('all', [UserController::class, 'index']);
     Route::get('show/{id}', [UserController::class, 'show']);
@@ -35,7 +35,7 @@ Route::prefix('user')->group(function () {
 
 
 //Task route
-Route::prefix('task')->middleware('auth:api')->group(function () {
+Route::prefix('tasks')->middleware('auth:api')->group(function () {
     Route::get('all', [TaskController::class, 'index']);
     Route::get('show/{id}', [TaskController::class, 'show']);
     Route::post('create', [TaskController::class, 'store']);
@@ -50,7 +50,9 @@ Route::post('login', [AuthController::class, 'login']);
 
 
 //Comments route
-Route::prefix('comment')->middleware('auth:api')->group(function(){
+Route::prefix('comments')->middleware('auth:api')->group(function(){
     Route::get('all', [CommentController::class, 'index']);
     Route::post('create', [CommentController::class, 'store']);
+    Route::post('update/{id}', [CommentController::class, 'update']);
+    Route::delete('destroy/{id}', [CommentController::class, 'destroy']);
 });

@@ -4,6 +4,7 @@ namespace App\Http\Api\Controllers;
 
 use App\Http\Api\DTOs\CommentDTOs\StoreCommentDTO;
 use App\Http\Api\Requests\StoreCommentRequest;
+use App\Http\Api\Requests\UpdateCommentRequest;
 use App\Http\Api\Services\CommentService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        return $this->commentService->index();
     }
 
     /**
@@ -57,16 +58,16 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCommentRequest $updateCommentRequest, int $commentId)
     {
-        //
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $commentId)
     {
-        //
+        return $this->commentService->destroy($commentId);
     }
 }

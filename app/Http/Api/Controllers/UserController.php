@@ -40,12 +40,12 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $storeUserRequest)
     {
         try {
             DB::beginTransaction();
 
-            $newUserData = new StoreUserDTO(...$request->validated());
+            $newUserData = new StoreUserDTO(...$storeUserRequest->validated());
             $newUser = $this->userService->store($newUserData);
 
             DB::commit();
@@ -61,9 +61,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(int $id)
+    public function show(int $userId)
     {
-        return $this->userService->show($id);
+        return $this->userService->show($userId);
     }
 
     /**
@@ -78,17 +78,17 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request)
+    public function update(UpdateUserRequest $updateUserRequest)
     {
-        $updateUserData = new UpdateUserDTO(... $request->validated());
+        $updateUserData = new UpdateUserDTO(... $updateUserRequest->validated());
         return $this->userService->update($updateUserData);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id)
+    public function destroy(int $userId)
     {
-        return $this->userService->destroy($id);
+        return $this->userService->destroy($userId);
     }
 }
