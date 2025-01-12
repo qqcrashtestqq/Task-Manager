@@ -3,6 +3,7 @@
 namespace App\Http\Api\Controllers;
 
 use App\Http\Api\DTOs\CommentDTOs\StoreCommentDTO;
+use App\Http\Api\DTOs\CommentDTOs\UpdateCommentDTO;
 use App\Http\Api\Requests\StoreCommentRequest;
 use App\Http\Api\Requests\UpdateCommentRequest;
 use App\Http\Api\Services\CommentService;
@@ -42,9 +43,9 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $commitId)
     {
-        //
+        return $this->commentService->show($commitId);
     }
 
     /**
@@ -58,8 +59,10 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCommentRequest $updateCommentRequest, int $commentId)
+    public function update(UpdateCommentRequest $updateCommentRequest)
     {
+        $updateCommentData = new UpdateCommentDTO(... $updateCommentRequest->validated());
+        return $this->commentService->update($updateCommentData);
 
     }
 

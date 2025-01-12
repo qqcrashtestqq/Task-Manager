@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//User route
+//Users route
 Route::prefix('users')->group(function () {
     Route::post('create', [UserController::class, 'store']);
     Route::get('all', [UserController::class, 'index']);
@@ -34,7 +34,7 @@ Route::prefix('users')->group(function () {
 });
 
 
-//Task route
+//Tasks route
 Route::prefix('tasks')->middleware('auth:api')->group(function () {
     Route::get('all', [TaskController::class, 'index']);
     Route::get('show/{id}', [TaskController::class, 'show']);
@@ -52,6 +52,7 @@ Route::post('login', [AuthController::class, 'login']);
 //Comments route
 Route::prefix('comments')->middleware('auth:api')->group(function(){
     Route::get('all', [CommentController::class, 'index']);
+    Route::get('show/{id}', [CommentController::class, 'show']);
     Route::post('create', [CommentController::class, 'store']);
     Route::post('update/{id}', [CommentController::class, 'update']);
     Route::delete('destroy/{id}', [CommentController::class, 'destroy']);

@@ -19,7 +19,7 @@ class Comment extends Model
         'parent_id'
     ];
 
-//    todo Спросить у Влада за правильность написания
+
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Comment::class, 'parent_id');
@@ -27,7 +27,7 @@ class Comment extends Model
 
     public function children(): HasMany
     {
-        return $this->hasMany(Comment::class, 'parent_id');
+        return $this->hasMany(Comment::class, 'parent_id')->with('children');
     }
 
 

@@ -14,6 +14,8 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+//        Role::truncate();
+//        todo что лучше использовать ?
         Role::query()->delete();
         DB::statement('ALTER TABLE roles AUTO_INCREMENT = 1;');
 

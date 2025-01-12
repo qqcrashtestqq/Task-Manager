@@ -22,7 +22,7 @@ class StoreCommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'comment' => ['required', 'string', 'max:255'],
+            'comment' => ['required', 'string', 'max:1000'],
             'user_id' => ['required', 'integer', 'exists:users,id'],
             'task_id' => ['required', 'integer', 'exists:tasks,id'],
             'parent_id' => ['nullable', 'integer', 'exists:comments,id'],
