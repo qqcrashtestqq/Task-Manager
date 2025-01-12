@@ -3,8 +3,8 @@
 namespace App\Http\Api\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
-class UpdateCommentRequest extends FormRequest
+use Illuminate\Validation\Rule;
+class UpdateCommentRequest extends GetIdRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,8 +21,14 @@ class UpdateCommentRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'comment' => ['required', 'string', 'max:255']
-        ];
+        return array_merge(parent::rules() + [
+                'comment' => ['required', 'string', 'max:1000']
+            ]);
+    }
+
+
+    public function validationData(): ?array
+    {
+        return array_merge($this->route()->parameters(), $this->all());
     }
 }

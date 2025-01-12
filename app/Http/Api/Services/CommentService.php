@@ -3,6 +3,7 @@
 namespace App\Http\Api\Services;
 
 use App\Http\Api\DTOs\CommentDTOs\StoreCommentDTO;
+use App\Http\Api\DTOs\CommentDTOs\UpdateCommentDTO;
 use App\Models\Comment;
 
 class CommentService
@@ -11,10 +12,11 @@ class CommentService
 
     public function index()
     {
-        $AllComments = Comment::select('comment', 'user_id', 'task_id', 'parent_id')
+        $AllComments = Comment::select('id','comment', 'user_id', 'task_id', 'parent_id')
             ->with([
                 'user:id,name,email',
-                'task:id,title,description'
+                'task:id,title,description',
+                'children'
             ])
             ->get();
 
@@ -25,21 +27,33 @@ class CommentService
         return response()->json($AllComments);
     }
 
+
+
+    public function show(int $commentId)
+    {
+        $comment = Comment::select('id', 'comment', 'user_id', 'task_id', 'parent_id')->with(['user:id,name,email',  'task:id,title'])->findOrFail($commentId);
+        unset($comment->user_id, $comment->task_id);
+
+        return $comment;
+    }
+
     public function store(StoreCommentDTO $storeCommentDTO)
     {
 
-        if ($storeCommentDTO->parent_id) {
-            $parentComment = Comment::findOrFail($storeCommentDTO->parent_id);
-            $storeCommentDTO->parent_id = $parentComment->id;
-        }
+//        if ($storeCommentDTO->parent_id) {
+//            $parentComment = Comment::findOrFail($storeCommentDTO->parent_id);
+//            $storeCommentDTO->parent_id = $parentComment->id;
+//        }
 
         return Comment::create($storeCommentDTO->toArray());
     }
 
 
-    public function update()
+    public function update(UpdateCommentDTO $updateCommentDTO)
     {
-
+        $updateCommentData = Comment::findOrFail($updateCommentDTO->id);
+        $updateCommentData->update($updateCommentDTO->toArray());
+        return $updateCommentData;
     }
 
 
