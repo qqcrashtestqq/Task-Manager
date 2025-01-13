@@ -42,7 +42,40 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "create done"
+                        "description": "create done",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Alex"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "alex@gmail.com"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "example": "hash passord"
+                                        },
+                                        "createAdd": {
+                                            "type": "integer",
+                                            "example": "12.12.2024"
+                                        },
+                                        "updateAdd": {
+                                            "type": "integer",
+                                            "example": "12.12.2024"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -7,7 +7,6 @@ class StoreUserDTO
 {
     public function __construct(
         public string $name,
-        public ?string $avatar,
         public string $email,
         public string $password,
         public int $roleId,
@@ -21,7 +20,6 @@ class StoreUserDTO
     {
         return [
             'name' => $this->name,
-            'avatar' => $this->avatar,
             'email' => $this->email,
             'password' => $this->password,
             'role_id' => $this->roleId,
